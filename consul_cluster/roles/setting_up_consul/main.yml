@@ -1,0 +1,17 @@
+- hosts: consulservers
+  remote_user: vagrant
+  become: true
+  vars:
+    ansible_ssh_private_key_file: "/vagrant/.vagrant/machines/ConsulServer/virtualbox/private_key"
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - include_tasks: tasks/consulservers.yml
+
+- hosts: consulagents
+  remote_user: vagrant
+  become: true
+  vars:
+    ansible_ssh_private_key_file: "/vagrant/.vagrant/machines/ConsulClient/virtualbox/private_key"
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - include_tasks: tasks/consulagents.yml

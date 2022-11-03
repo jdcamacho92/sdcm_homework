@@ -1,0 +1,19 @@
+  - name: setup_consul_server
+    become: true
+    remote_user: vagrant
+    vars:
+      ansible_ssh_private_key_file: "/vagrant/.vagrant/machines/ConsulServer/virtualbox/private_key"
+
+    tasks:
+      - name: setup_consul_server
+        command: consul agent -server -bootstrap-expect=1 -node=agent-one -bind=192.168.56.2 -data-dir=/tmp/consul -config-dir=/etc/consul.d
+
+  - name: setup_consul_client
+    become: true
+    remote_user: vagrant
+    vars:
+      ansible_ssh_private_key_file: "/vagrant/.vagrant/machines/ConsulServer/virtualbox/private_key"
+
+    tasks:
+      - name :  setup_consul_client
+        command : consul agent -node=agent-two -bind=192.168.56.3 -enable-script-checks=true -data-dir=/tmp/consul -config-dir=/etc/consul.d consul join 192.168.56.2

@@ -1,0 +1,6 @@
+- name: configurar consulagent
+  shell: consul agent -node=agent-two -bind=192.168.56.3 -enable-script-checks=true -data-dir=/tmp/consul -config-dir=/etc/consul.d &
+  poll: 0
+
+- name: configurar join server for gossip
+  shell: consul join 192.168.56.2
